@@ -1,0 +1,29 @@
+{% extends "main/base.html" %}
+{% block content %}
+    <div class="totals">
+        <h2> Your Totals </h2>
+        <p> Total Calories: {{ totalCalories }}</p>
+        <p> Total Fats (g): {{ totalFats }}</p>
+        <p> Total Carbs (g): {{ totalCarbs }}</p>
+        <p> Total Protein (g): {{ totalProtein }}</p>
+    </div>
+    <div class="center-column">
+
+    	<form method="POST" action="/">
+    		{% csrf_token %}
+    		{{form}}
+    		<input class="btn btn-success" type="submit" name="Add Food">
+    	</form>
+
+    	<div class="food-list">
+
+    	{% for food in foods %}
+    		<div class="item-row">
+    			<a class="btn btn-sm btn-info" href="{% url 'update_food' food.id %}">Update</a>
+    			<a class="btn btn-sm btn-danger" href="{% url 'delete' food.id %}">Delete</a>
+                <p> {{ food }}</p>
+    		</div>
+    	{% endfor %}
+    	</div>
+    </div>
+{% endblock %}
